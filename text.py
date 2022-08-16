@@ -64,7 +64,7 @@ for index in range(len(text)):
 
     if to_hex(image_array[params["y"], params["x"], :], True) != params["col"]:
         print(
-            "置き換え: "
+            "replace: "
             + str(params["x"])
             + ","
             + str(params["y"])

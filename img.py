@@ -57,7 +57,7 @@ for y in range(0, height, 4):
         params["col"] = to_hex([int(imgBox[2]), int(imgBox[1]), int(imgBox[0])])
         if to_hex(image_array[params["y"], params["x"], :], True) != params["col"]:
             print(
-                "置き換え: "
+                "replace: "
                 + str(params["x"])
                 + ","
                 + str(params["y"])
