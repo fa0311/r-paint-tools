@@ -43,7 +43,7 @@ image_array = cv2.imdecode(image, cv2.IMREAD_COLOR)
 
 params = {
     "x": -1,
-    "y": -1,
+    "y": 0,
     "col": "000000",
 }
 
@@ -51,7 +51,7 @@ for index in range(len(text)):
 
     if text[index] == "\n":
         params["y"] += 1
-        params["x"] = 0
+        params["x"] = -1
         continue
 
     if text[index] == " ":
