@@ -11,8 +11,8 @@ def get_headers():
     }
 
 
-def to_hex(color, reverse=False):
-    if reverse:
+def to_hex(color, bgr=False):
+    if bgr:
         return (
             "{:02x}".format(color[2])
             + "{:02x}".format(color[1])
