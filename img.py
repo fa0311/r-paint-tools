@@ -33,7 +33,7 @@ def send(params):
     print(response.status_code)
 
 
-img = cv2.imread("assets/aaaa.jpg")
+img = cv2.imread("assets/img.jpg")
 height = img.shape[0]
 width = img.shape[1]
 
