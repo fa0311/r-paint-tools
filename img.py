@@ -30,41 +30,48 @@ def send(params):
     response = requests.get(
         "https://r-paint.herokuapp.com/draw", headers=get_headers(), params=params
     )
+    print(response.status_code)
 
 
-resp = requests.get("https://r-paint.herokuapp.com/getimg", stream=True).raw
-image = numpy.asarray(bytearray(resp.read()), dtype="uint8")
-image_array = cv2.imdecode(image, cv2.IMREAD_COLOR)
-
-img = cv2.imread("assets/img.jpg")
+img = cv2.imread("assets/aaaa.jpg")
 height = img.shape[0]
 width = img.shape[1]
 
 
-params = {
-    "x": -1,
-    "y": -1,
-    "col": "000000",
-}
+count = 0
+while True:
+    print("Start")
+    resp = requests.get("https://r-paint.herokuapp.com/getimg", stream=True).raw
+    image = numpy.asarray(bytearray(resp.read()), dtype="uint8")
+    image_array = cv2.imdecode(image, cv2.IMREAD_COLOR)
 
-for y in range(0, height, 4):
-    params["x"] = -1
-    params["y"] += 1
 
-    for x in range(0, width, 4):
-        params["x"] += 1
-        imgBox = img[y, x]
-        params["col"] = to_hex([int(imgBox[2]), int(imgBox[1]), int(imgBox[0])])
-        if to_hex(image_array[params["y"], params["x"], :], True) != params["col"]:
-            print(
-                "replace: "
-                + str(params["x"])
-                + ","
-                + str(params["y"])
-                + " "
-                + to_hex(image_array[params["y"], params["x"], :], True)
-                + " "
-                + params["col"]
-            )
-            asyncio.new_event_loop().run_in_executor(None, send, params)
-            time.sleep(0.1)
+    params = {
+        "x": -1,
+        "y": -1,
+        "col": "000000",
+    }
+    count = 0
+    for y in range(0, height, 1):
+        params["x"] = -1
+        params["y"] += 1
+
+        for x in range(0, width, 1):
+            params["x"] += 1
+            imgBox = img[y, x]
+            params["col"] = to_hex([int(imgBox[2]), int(imgBox[1]), int(imgBox[0])])
+            if to_hex(image_array[params["y"], params["x"], :], True) != params["col"]:
+                count += 1
+                print(
+                    "replace: "
+                    + str(params["x"])
+                    + ","
+                    + str(params["y"])
+                    + " "
+                    + to_hex(image_array[params["y"], params["x"], :], True)
+                    + " "
+                    + params["col"]
+                )
+                asyncio.new_event_loop().run_in_executor(None, send, params)
+        print("wait...")
+        time.sleep(count / 650 + 0.2)
