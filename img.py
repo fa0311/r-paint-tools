@@ -38,7 +38,6 @@ height = img.shape[0]
 width = img.shape[1]
 
 
-count = 0
 while True:
     print("Start")
     resp = requests.get("https://r-paint.herokuapp.com/getimg", stream=True).raw
@@ -73,5 +72,5 @@ while True:
                     + params["col"]
                 )
                 asyncio.new_event_loop().run_in_executor(None, send, params)
-        print("wait...")
-        time.sleep(count / 650 + 0.2)
+    print("wait...")
+    time.sleep(count / 650 + 0.2)

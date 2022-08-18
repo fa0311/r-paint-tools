@@ -43,7 +43,6 @@ for file in files:
     width = img.shape[1]
 
 
-    count = 0
     resp = requests.get("https://r-paint.herokuapp.com/getimg", stream=True).raw
     image = numpy.asarray(bytearray(resp.read()), dtype="uint8")
     image_array = cv2.imdecode(image, cv2.IMREAD_COLOR)
@@ -55,11 +54,11 @@ for file in files:
         "col": "000000",
     }
     count = 0
-    for y in range(0, height, 8):
+    for y in range(0, height, 16):
         params["x"] = -1
         params["y"] += 1
 
-        for x in range(0, width, 8):
+        for x in range(0, width, 16):
             params["x"] += 1
             imgBox = img[y, x]
             params["col"] = to_hex([int(imgBox[2]), int(imgBox[1]), int(imgBox[0])])
